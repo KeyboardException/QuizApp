@@ -181,12 +181,12 @@ public class QuizActivity extends AppCompatActivity {
 		submit.setColor("blue");
 		submit.setText("Kiểm Tra");
 
-		selectedAnswer = 0;
 		answers.clearCheck();
 		answer1.setText(currentQuestion.answer1);
 		answer2.setText(currentQuestion.answer2);
 		answer3.setText(currentQuestion.answer3);
 		answer4.setText(currentQuestion.answer4);
+		selectedAnswer = 0;
 
 		answer1.setClickable(true);
 		answer2.setClickable(true);
