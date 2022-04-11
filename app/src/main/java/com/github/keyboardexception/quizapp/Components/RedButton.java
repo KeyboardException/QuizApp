@@ -5,11 +5,10 @@ import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import com.github.keyboardexception.quizapp.R;
 
-public class RedButton extends GreenButton {
+public class RedButton extends BaseButton {
 	public RedButton(@NonNull Context context) {
 		super(context);
 	}

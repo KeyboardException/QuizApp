@@ -8,26 +8,26 @@ import androidx.annotation.Nullable;
 
 import com.github.keyboardexception.quizapp.R;
 
-public class BlueButton extends BaseButton {
-	public BlueButton(@NonNull Context context) {
+public class GreenButton extends BaseButton {
+	public GreenButton(@NonNull Context context) {
 		super(context);
 	}
 
-	public BlueButton(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public GreenButton(@NonNull Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public BlueButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+	public GreenButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
 	@Override
 	protected int getEnabledBackground() {
-		return R.drawable.button_blue_enabled;
+		return R.drawable.button_green_enabled;
 	}
 
 	@Override
 	protected int getActiveBackground() {
-		return R.drawable.button_blue_active;
+		return R.drawable.button_green_active;
 	}
 }

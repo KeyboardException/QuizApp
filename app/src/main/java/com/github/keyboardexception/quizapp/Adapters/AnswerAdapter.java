@@ -1,67 +1,57 @@
 package com.github.keyboardexception.quizapp.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.github.keyboardexception.quizapp.Activities.QuizActivity;
-import com.github.keyboardexception.quizapp.Objects.Category;
+import com.github.keyboardexception.quizapp.Objects.Answer;
 import com.github.keyboardexception.quizapp.R;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
-public class ResultAdapter extends ArrayAdapter<Category> {
-	public ResultAdapter(@NonNull Context context, ArrayList<Category> categories) {
-		super(context, 0, categories);
+public class AnswerAdapter extends ArrayAdapter<Answer> {
+	public AnswerAdapter(@NonNull Context context, ArrayList<Answer> answers) {
+		super(context, 0, answers);
 	}
 
 	@NonNull
 	@Override
 	public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 		View currentView = (convertView == null)
-			? LayoutInflater.from(getContext()).inflate(R.layout.result_card, parent, false)
+			? LayoutInflater.from(getContext()).inflate(R.layout.answer_card, parent, false)
 			: convertView;
 
-		Category category = getItem(position);
+		Answer answer = getItem(position);
 
-		currentView.setOnTouchListener((view, event) -> {
-			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				view.performClick();
-				view.setBackgroundResource(R.drawable.category_card_active);
-				return true;
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				view.setBackgroundResource(R.drawable.category_card);
+		TextView question = currentView.findViewById(R.id.ans_card_question);
+		LinearLayout wrong = currentView.findViewById(R.id.ans_card_wrong);
+		TextView wrongAnswer = currentView.findViewById(R.id.ans_card_wrong_answer);
+		TextView correctAnswer = currentView.findViewById(R.id.ans_card_correct_answer);
+
+		question.setText(answer.question.question);
+
+		if (answer.isCorrect()) {
+			currentView.setBackgroundResource(R.drawable.card_green);
+			wrong.setVisibility(View.GONE);
+			correctAnswer.setText(answer.getAnswer(answer.answer));
+		} else {
+			currentView.setBackgroundResource(R.drawable.card_red);
+
+			if (answer.answer == 0) {
+				wrong.setVisibility(View.GONE);
+			} else {
+				wrongAnswer.setText(answer.getAnswer(answer.answer));
 			}
 
-			return false;
-		});
-
-		currentView.setOnClickListener(view -> {
-			Intent intent = new Intent(getContext(), QuizActivity.class);
-			intent.putExtra("category", category.id);
-			getContext().startActivity(intent);
-		});
-
-		View icon = currentView.findViewById(R.id.cat_card_icon);
-		TextView title = currentView.findViewById(R.id.cat_card_title);
-		TextView questions = currentView.findViewById(R.id.cat_card_questions);
-		ProgressBar progress = currentView.findViewById(R.id.cat_card_progress);
-
-		int iconID = getContext().getResources().getIdentifier(category.icon, "drawable", getContext().getPackageName());
-		icon.setBackgroundResource(iconID);
-		title.setText(category.name);
-		questions.setText(String.format(Locale.US, "%d câu hỏi", category.questionIDs.size()));
-		progress.setProgress((category.completed / category.questionIDs.size()) * 100, true);
+			correctAnswer.setText(answer.getAnswer(answer.question.answer));
+		}
 
 		return currentView;
 	}

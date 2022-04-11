@@ -3,10 +3,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/result_card_correct">
+    android:background="@drawable/card_green">
 
     <TextView
-        android:id="@+id/res_card_question"
+        android:id="@+id/ans_card_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sample Question Content"
@@ -15,20 +15,19 @@
         android:textSize="20sp" />
 
     <LinearLayout
-        android:id="@+id/res_card_wrong"
+        android:id="@+id/ans_card_wrong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:layout_marginTop="10dp">
 
         <View
-            android:id="@+id/res_card_wrong_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@drawable/wrong_dot" />
 
         <TextView
-            android:id="@+id/res_card_wrong_answer"
+            android:id="@+id/ans_card_wrong_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -45,13 +44,12 @@
         android:layout_marginTop="10dp">
 
         <View
-            android:id="@+id/res_card_correct_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@drawable/correct_dot" />
 
         <TextView
-            android:id="@+id/res_card_correct_answer"
+            android:id="@+id/ans_card_correct_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"

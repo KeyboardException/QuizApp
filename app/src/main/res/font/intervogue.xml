@@ -1,4 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <font-family xmlns:android="http://schemas.android.com/apk/res/android">
-  
+    <font
+        android:font="@font/intervogue_lightoblique"
+        android:fontWeight="300"
+        android:fontStyle="italic" />
+
+    <font
+        android:font="@font/intervogue_medium"
+        android:fontWeight="500"
+        android:fontStyle="normal" />
+
+    <font
+        android:font="@font/intervogue_bold"
+        android:fontWeight="700"
+        android:fontStyle="normal" />
+
+    <font
+        android:font="@font/intervogue_light"
+        android:fontWeight="300"
+        android:fontStyle="normal" />
+
+    <font
+        android:font="@font/intervogue_mediumoblique"
+        android:fontWeight="400"
+        android:fontStyle="italic" />
+
+    <font
+        android:font="@font/intervogue_bold"
+        android:fontWeight="500"
+        android:fontStyle="italic" />
+
+    <font
+        android:font="@font/intervogue_black"
+        android:fontWeight="900"
+        android:fontStyle="normal" />
+
+    <font
+        android:font="@font/intervogue_boldoblique"
+        android:fontWeight="700"
+        android:fontStyle="italic" />
+
+    <font
+        android:font="@font/intervogue_thinoblique"
+        android:fontWeight="100"
+        android:fontStyle="italic" />
+
+    <font
+        android:font="@font/intervogue_oblique"
+        android:fontWeight="400"
+        android:fontStyle="italic" />
+
+    <font
+        android:font="@font/intervogue_regular"
+        android:fontWeight="400"
+        android:fontStyle="normal" />
+
+    <font
+        android:font="@font/intervogue_thin"
+        android:fontWeight="100"
+        android:fontStyle="normal" />
+
 </font-family>

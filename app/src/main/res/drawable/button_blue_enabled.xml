@@ -3,13 +3,13 @@
     <item>
         <shape>
             <corners android:radius="12dp" />
-            <solid android:color="#E89DAD" />
+            <solid android:color="#0569BF" />
         </shape>
     </item>
 
     <item android:bottom="6dp">
         <shape>
-            <solid android:color="#FFAFC0" />
+            <solid android:color="#2C96F1" />
             <corners android:radius="12dp" />
             <padding android:bottom="6dp" />
         </shape>

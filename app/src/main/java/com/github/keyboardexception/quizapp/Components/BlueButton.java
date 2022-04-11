@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 import com.github.keyboardexception.quizapp.R;
 
-public class BlueButton extends GreenButton {
+public class BlueButton extends BaseButton {
 	public BlueButton(@NonNull Context context) {
 		super(context);
 	}

@@ -1,6 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/qtimer"
+            android:layout_width="63dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/intervogue_bold"
+            android:text="00"
+            android:textColor="@color/text_primary"
+            android:textSize="28dp"
+            app:layout_constraintBottom_toBottomOf="@+id/qclock"
+            app:layout_constraintStart_toEndOf="@+id/qclock"
+            app:layout_constraintTop_toTopOf="@+id/qclock"
+            app:layout_constraintVertical_bias="0.8" />
+
+        <View
+            android:id="@+id/qclock"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="52dp"
+            android:background="@drawable/clock_anim"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="112dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="40dp"
+            android:gravity="bottom|right"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/qtimer"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/qdot_1"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/current_dot" />
+
+            <View
+                android:id="@+id/qdot_2"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="0"
+                android:background="@drawable/correct_dot" />
+
+            <View
+                android:id="@+id/qdot_3"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="0"
+                android:background="@drawable/wrong_dot" />
+
+            <View
+                android:id="@+id/qdot_4"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="0"
+                android:background="@drawable/dot" />
+
+            <View
+                android:id="@+id/qdot_5"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_weight="0"
+                android:background="@drawable/dot" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="120dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qclock">
+
+            <TextView
+                android:id="@+id/quesnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/intervogue_bold"
+                android:text="Câu 0"
+                android:textColor="@color/text_primary"
+                android:textSize="34dp" />
+
+            <TextView
+                android:id="@+id/quescontent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/intervogue_bold"
+                android:text="Question Content"
+                android:textColor="@color/text_primary"
+                android:textSize="18dp" />
+
+            <RadioGroup
+                android:id="@+id/qansgroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp">
+
+                <RadioButton
+                    android:id="@+id/qans1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-6dp"
+                    android:fontFamily="@font/intervogue_bold"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Answer 1"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16dp" />
+
+                <RadioButton
+                    android:id="@+id/qans2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-6dp"
+                    android:fontFamily="@font/intervogue_bold"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Answer 2"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16dp" />
+
+                <RadioButton
+                    android:id="@+id/qans3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-6dp"
+                    android:fontFamily="@font/intervogue_bold"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Answer 3"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16dp" />
+
+                <RadioButton
+                    android:id="@+id/qans4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-6dp"
+                    android:fontFamily="@font/intervogue_bold"
+                    android:paddingLeft="10dp"
+                    android:text="Answer 4"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16dp" />
+
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/respanel"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:background="@drawable/correct_panel"
+        android:orientation="horizontal"
+        android:translationY="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/restext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/intervogue_bold"
+            android:text="TextView"
+            android:textSize="20dp" />
+
+        <View
+            android:id="@+id/resicon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/correct_dot" />
+    </LinearLayout>
+
+    <com.github.keyboardexception.quizapp.Components.DynamicButton
+        android:id="@+id/achkbtn"
+        style="@style/Button"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="30dp"
+        android:text="Kiểm Tra"
+        app:layout_constraintBottom_toBottomOf="@+id/container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

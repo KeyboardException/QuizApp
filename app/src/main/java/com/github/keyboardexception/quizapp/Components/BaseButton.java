@@ -10,44 +10,47 @@ import androidx.core.content.ContextCompat;
 
 import com.github.keyboardexception.quizapp.R;
 
-public class GreenButton extends AppCompatButton {
-	public GreenButton(@NonNull Context context) {
+public class BaseButton extends AppCompatButton {
+	public BaseButton(@NonNull Context context) {
 		super(context, null, R.style.Button);
 		init();
 	}
 
-	public GreenButton(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public BaseButton(@NonNull Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs, R.style.Button);
 		init();
 	}
 
-	public GreenButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+	public BaseButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init();
 	}
 
 	protected int getEnabledBackground() {
-		return R.drawable.button_green_enabled;
+		return R.drawable.button_base_enabled;
 	}
 
 	protected int getActiveBackground() {
-		return R.drawable.button_green_active;
+		return R.drawable.button_base_active;
 	}
 
-	private void init() {
+	protected void init() {
 		setTextSize(18);
 		setTextColor(ContextCompat.getColor(getContext(), R.color.white));
-		setBackgroundResource(getEnabledBackground());
+		updateColor();
+	}
+
+	protected void updateColor() {
+		setBackgroundResource(isPressed()
+			? getActiveBackground()
+			: getEnabledBackground());
 	}
 
 	@Override
 	public void setPressed(boolean pressed) {
 		if (pressed != isPressed()) {
-			setBackgroundResource(pressed
-				? getActiveBackground()
-				: getEnabledBackground());
+			super.setPressed(pressed);
+			updateColor();
 		}
-
-		super.setPressed(pressed);
 	}
 }

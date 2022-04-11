@@ -23,109 +23,169 @@ import android.os.Message;
  * Schedule a countdown until a time in the future, with
  * regular notifications on intervals along the way.
  * <p>
- * Example of showing a 30 second countdown in a text field:
- *
- * <pre class="prettyprint">
- * new CountdownTimer(30000, 1000) {
- *
- *     public void onTick(long millisUntilFinished) {
- *         mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
- *     }
- *
- *     public void onFinish() {
- *         mTextField.setText("done!");
- *     }
- *  }.start();
- * </pre>
- * <p>
  * The calls to {@link #onTick(long)} are synchronized to this object so that
  * one call to {@link #onTick(long)} won't ever occur before the previous
  * callback is complete.  This is only relevant when the implementation of
  * {@link #onTick(long)} takes an amount of time to execute that is significant
  * compared to the countdown interval.
  */
-public abstract class CountDownTimer {
+public abstract class CountDownTimerWithPause {
 
 	/**
-	 * Millis since epoch when alarm should stop.
+	 * Millis since boot when alarm should stop.
 	 */
-	private final long mMillisInFuture;
+	private long mStopTimeInFuture;
+
+	/**
+	 * Real time remaining until timer completes
+	 */
+	private long mMillisInFuture;
+
+	/**
+	 * Total time on timer at start
+	 */
+	private final long mTotalCountdown;
 
 	/**
 	 * The interval in millis that the user receives callbacks
 	 */
 	private final long mCountdownInterval;
 
-	private long mStopTimeInFuture;
-
-	private long mPauseTime;
-
-	private boolean mCancelled = false;
-
-	private boolean mPaused = false;
+	/**
+	 * The time remaining on the timer when it was paused, if it is currently paused; 0 otherwise.
+	 */
+	private long mPauseTimeRemaining;
 
 	/**
-	 * @param millisInFuture    The number of millis in the future from the call
-	 *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
-	 *                          is called.
-	 * @param countDownInterval The interval along the way to receive
-	 *                          {@link #onTick(long)} callbacks.
+	 * True if timer was started running, false if not.
 	 */
-	public CountDownTimer(long millisInFuture, long countDownInterval) {
-		mMillisInFuture = millisInFuture;
+	private final boolean mRunAtStart;
+
+	/**
+	 * @param millisOnTimer     The number of millis in the future until the countdown is done
+	 *                          and {@link #onFinish()} is called
+	 * @param countDownInterval The interval in millis at which to execute
+	 *                          {@link #onTick(long)} callbacks
+	 * @param runAtStart        True if timer should start running, false if not
+	 */
+	public CountDownTimerWithPause(long millisOnTimer, long countDownInterval, boolean runAtStart) {
+		mMillisInFuture = millisOnTimer;
+		mTotalCountdown = mMillisInFuture;
 		mCountdownInterval = countDownInterval;
+		mRunAtStart = runAtStart;
 	}
 
 	/**
-	 * Cancel the countdown.
-	 * <p>
-	 * Do not call it from inside CountDownTimer threads
+	 * Cancel the countdown and clears all remaining messages
 	 */
 	public final void cancel() {
 		mHandler.removeMessages(MSG);
-		mCancelled = true;
 	}
 
 	/**
-	 * Start the countdown.
+	 * Create the timer object.
 	 */
-	public synchronized final CountDownTimer start() {
+	public synchronized final CountDownTimerWithPause create() {
 		if (mMillisInFuture <= 0) {
 			onFinish();
-			return this;
+		} else {
+			mPauseTimeRemaining = mMillisInFuture;
 		}
 
-		mStopTimeInFuture = SystemClock.elapsedRealtime() + mMillisInFuture;
-		mHandler.sendMessage(mHandler.obtainMessage(MSG));
-		mCancelled = false;
-		mPaused = false;
+		if (mRunAtStart) {
+			resume();
+		}
+
 		return this;
 	}
 
 	/**
-	 * Pause the countdown.
+	 * Pauses the counter.
 	 */
-	public long pause() {
-		mPauseTime = mStopTimeInFuture - SystemClock.elapsedRealtime();
-		mPaused = true;
-		mHandler.removeMessages(MSG);
-		return mPauseTime;
+	public void pause() {
+		if (isRunning()) {
+			mPauseTimeRemaining = timeLeft();
+			cancel();
+		}
 	}
 
 	/**
-	 * Resume the countdown.
+	 * Resumes the counter.
 	 */
-	public long resume() {
-		mStopTimeInFuture = mPauseTime + SystemClock.elapsedRealtime();
-		mPaused = false;
-		mHandler.sendMessage(mHandler.obtainMessage(MSG));
-		return mPauseTime;
+	public void resume() {
+		if (isPaused()) {
+			mMillisInFuture = mPauseTimeRemaining;
+			mStopTimeInFuture = SystemClock.elapsedRealtime() + mMillisInFuture;
+			mHandler.sendMessage(mHandler.obtainMessage(MSG));
+			mPauseTimeRemaining = 0;
+		}
 	}
 
 	/**
-	 * Callback fired on regular interval.
+	 * Tests whether the timer is paused.
 	 *
-	 * @param millisUntilFinished The amount of time until finished.
+	 * @return true if the timer is currently paused, false otherwise.
+	 */
+	public boolean isPaused() {
+		return (mPauseTimeRemaining > 0);
+	}
+
+	/**
+	 * Tests whether the timer is running. (Performs logical negation on {@link #isPaused()})
+	 *
+	 * @return true if the timer is currently running, false otherwise.
+	 */
+	public boolean isRunning() {
+		return (!isPaused());
+	}
+
+	/**
+	 * Returns the number of milliseconds remaining until the timer is finished
+	 *
+	 * @return number of milliseconds remaining until the timer is finished
+	 */
+	public long timeLeft() {
+		long millisUntilFinished;
+		if (isPaused()) {
+			millisUntilFinished = mPauseTimeRemaining;
+		} else {
+			millisUntilFinished = mStopTimeInFuture - SystemClock.elapsedRealtime();
+			if (millisUntilFinished < 0) millisUntilFinished = 0;
+		}
+		return millisUntilFinished;
+	}
+
+	/**
+	 * Returns the number of milliseconds in total that the timer was set to run
+	 *
+	 * @return number of milliseconds timer was set to run
+	 */
+	public long totalCountdown() {
+		return mTotalCountdown;
+	}
+
+	/**
+	 * Returns the number of milliseconds that have elapsed on the timer.
+	 *
+	 * @return the number of milliseconds that have elapsed on the timer.
+	 */
+	public long timePassed() {
+		return mTotalCountdown - timeLeft();
+	}
+
+	/**
+	 * Returns true if the timer has been started, false otherwise.
+	 *
+	 * @return true if the timer has been started, false otherwise.
+	 */
+	public boolean hasBeenStarted() {
+		return (mPauseTimeRemaining <= mMillisInFuture);
+	}
+
+	/**
+	 * Callback fired on regular interval
+	 *
+	 * @param millisUntilFinished The amount of time until finished
 	 */
 	public abstract void onTick(long millisUntilFinished);
 
@@ -139,35 +199,32 @@ public abstract class CountDownTimer {
 
 
 	// handles counting down
-	private Handler mHandler = new Handler() {
+	private final Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 
-			synchronized (CountDownTimer.this) {
-				if (!mPaused) {
-					final long millisLeft = mStopTimeInFuture - SystemClock.elapsedRealtime();
+			synchronized (CountDownTimerWithPause.this) {
+				long millisLeft = timeLeft();
 
-					if (millisLeft <= 0) {
-						onFinish();
-					} else if (millisLeft < mCountdownInterval) {
-						// no tick, just delay until done
-						sendMessageDelayed(obtainMessage(MSG), millisLeft);
-					} else {
-						long lastTickStart = SystemClock.elapsedRealtime();
-						onTick(millisLeft);
+				if (millisLeft <= 0) {
+					cancel();
+					onFinish();
+				} else if (millisLeft < mCountdownInterval) {
+					// no tick, just delay until done
+					sendMessageDelayed(obtainMessage(MSG), millisLeft);
+				} else {
+					long lastTickStart = SystemClock.elapsedRealtime();
+					onTick(millisLeft);
 
-						// take into account user's onTick taking time to execute
-						long delay = lastTickStart + mCountdownInterval - SystemClock.elapsedRealtime();
+					// take into account user's onTick taking time to execute
+					long delay = mCountdownInterval - (SystemClock.elapsedRealtime() - lastTickStart);
 
-						// special case: user's onTick took more than interval to
-						// complete, skip to next interval
-						while (delay < 0) delay += mCountdownInterval;
+					// special case: user's onTick took more than mCountdownInterval to
+					// complete, skip to next interval
+					while (delay < 0) delay += mCountdownInterval;
 
-						if (!mCancelled) {
-							sendMessageDelayed(obtainMessage(MSG), delay);
-						}
-					}
+					sendMessageDelayed(obtainMessage(MSG), delay);
 				}
 			}
 		}
