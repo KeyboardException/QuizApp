@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.media.PlaybackParams;
+import android.util.Log;
 
 import java.util.Random;
 
@@ -70,6 +71,12 @@ public class Sounds {
 			stop();
 
 		player = MediaPlayer.create(Main.context, id);
+
+		if (player == null) {
+			Log.e("sounds", String.format("Failed initializing sound id %d for playing", id));
+			return;
+		}
+
 		player.start();
 	}
 

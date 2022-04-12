@@ -12,7 +12,7 @@ public class QuestionStore {
 	public QuestionStore() {
 		categories = new ArrayList<>();
 
-		Category fun = new Category("Mẹo", "mathematical");
+		Category fun = new Category("Mẹo", "bullseye");
 		categories.add(fun);
 
 		fun.add(new Question(
@@ -187,7 +187,7 @@ public class QuestionStore {
 			4
 		));
 
-		Category Lop5 = new Category("Ai Thông Minh Hơn Học Sinh Lớp 5", "mathematical");
+		Category Lop5 = new Category("Ai Thông Minh Hơn Học Sinh Lớp 5", "apple");
 		categories.add(Lop5);
 
 		Lop5.add(new Question(
@@ -412,7 +412,7 @@ public class QuestionStore {
 				1
 		));
 
-		Category Anhlop5 = new Category("Tiếng Anh 5 - Nâng Cao", "mathematical");
+		Category Anhlop5 = new Category("Tiếng Anh 5 - Nâng Cao", "language");
 		categories.add(Anhlop5);
 
 		Anhlop5.add(new Question(
