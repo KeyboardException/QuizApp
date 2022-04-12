@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DB extends SQLiteOpenHelper {
 	public static final String	DB_NAME = "quiz.db";
-	public static final int		DB_VERSION = 3;
+	public static final int		DB_VERSION = 5;
 
 	protected SQLiteDatabase writableDatabase = null;
 	protected SQLiteDatabase readableDatabase = null;
