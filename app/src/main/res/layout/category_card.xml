@@ -17,14 +17,14 @@
 
         <TextView
             android:id="@+id/cat_card_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/intervogue_bold"
             android:textColor="@color/text_primary"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:text="Title" />
 
         <TextView

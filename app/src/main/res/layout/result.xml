@@ -99,7 +99,7 @@
             android:id="@+id/res_catname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:fontFamily="@font/intervogue_bold"
             android:text="Title"
             android:textColor="@color/text_primary"
