@@ -90,93 +90,96 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="120dp"
-            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/qclock">
 
-            <TextView
-                android:id="@+id/quesnum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:fontFamily="@font/intervogue_bold"
-                android:text="Câu 0"
-                android:textColor="@color/text_primary"
-                android:textSize="34dp" />
-
-            <TextView
-                android:id="@+id/quescontent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/intervogue_bold"
-                android:text="Question Content"
-                android:textColor="@color/text_primary"
-                android:textSize="18dp" />
-
-            <RadioGroup
-                android:id="@+id/qansgroup"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="50dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/qans1"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/quesnum"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="-6dp"
+                    android:layout_marginTop="50dp"
                     android:fontFamily="@font/intervogue_bold"
-                    android:paddingLeft="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Answer 1"
+                    android:text="Câu 0"
                     android:textColor="@color/text_primary"
-                    android:textSize="16dp" />
+                    android:textSize="34dp" />
 
-                <RadioButton
-                    android:id="@+id/qans2"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/quescontent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="-6dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/intervogue_bold"
-                    android:paddingLeft="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Answer 2"
+                    android:text="Question Content"
                     android:textColor="@color/text_primary"
-                    android:textSize="16dp" />
+                    android:textSize="18dp" />
 
-                <RadioButton
-                    android:id="@+id/qans3"
+                <RadioGroup
+                    android:id="@+id/qansgroup"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-6dp"
-                    android:fontFamily="@font/intervogue_bold"
-                    android:paddingLeft="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Answer 3"
-                    android:textColor="@color/text_primary"
-                    android:textSize="16dp" />
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="50dp">
 
-                <RadioButton
-                    android:id="@+id/qans4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-6dp"
-                    android:fontFamily="@font/intervogue_bold"
-                    android:paddingLeft="10dp"
-                    android:text="Answer 4"
-                    android:textColor="@color/text_primary"
-                    android:textSize="16dp" />
+                    <RadioButton
+                        android:id="@+id/qans1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-6dp"
+                        android:fontFamily="@font/intervogue_bold"
+                        android:paddingLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Answer 1"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16dp" />
 
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/qans2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-6dp"
+                        android:fontFamily="@font/intervogue_bold"
+                        android:paddingLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Answer 2"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16dp" />
 
+                    <RadioButton
+                        android:id="@+id/qans3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-6dp"
+                        android:fontFamily="@font/intervogue_bold"
+                        android:paddingLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Answer 3"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16dp" />
 
-        </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/qans4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-6dp"
+                        android:fontFamily="@font/intervogue_bold"
+                        android:paddingLeft="10dp"
+                        android:text="Answer 4"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16dp" />
+
+                </RadioGroup>
+            </LinearLayout>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

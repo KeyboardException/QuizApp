@@ -16,6 +16,7 @@ import com.github.keyboardexception.quizapp.Objects.Answer;
 import com.github.keyboardexception.quizapp.Objects.Category;
 import com.github.keyboardexception.quizapp.Objects.Result;
 import com.github.keyboardexception.quizapp.R;
+import com.github.keyboardexception.quizapp.Sounds;
 
 import java.util.ArrayList;
 
@@ -85,9 +86,11 @@ public class ResultActivity extends AppCompatActivity {
 
 		header.setBackgroundColor(color);
 		getWindow().setStatusBarColor(color);
+		Sounds.startBGMOut();
 
 		home.setOnClickListener(view -> {
 			finish();
+			Sounds.stopBGM();
 		});
 	}
 }

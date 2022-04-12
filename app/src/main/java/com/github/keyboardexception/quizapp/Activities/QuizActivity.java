@@ -21,6 +21,7 @@ import com.github.keyboardexception.quizapp.Objects.Category;
 import com.github.keyboardexception.quizapp.Objects.Question;
 import com.github.keyboardexception.quizapp.Objects.Result;
 import com.github.keyboardexception.quizapp.R;
+import com.github.keyboardexception.quizapp.Sounds;
 import com.github.keyboardexception.quizapp.Utils.CountDownTimerWithPause;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class QuizActivity extends AppCompatActivity {
-	public static long TIME = 30000;
+	public static long TIME = 41000;
 
 	protected List<Question> questions;
 
@@ -130,6 +131,7 @@ public class QuizActivity extends AppCompatActivity {
 			}
 		}.create();
 
+		Sounds.startBGM();
 		next();
 	}
 
@@ -210,6 +212,7 @@ public class QuizActivity extends AppCompatActivity {
 
 	protected void onSubmit(View view) {
 		if (answered) {
+			Sounds.stop();
 			next();
 			return;
 		}
@@ -218,11 +221,13 @@ public class QuizActivity extends AppCompatActivity {
 			return;
 
 		if (selectedAnswer == currentQuestion.answer) {
+			Sounds.correct();
 			showResultCard(true);
 			submit.setColor("green");
 			currentQuestion.completed += 1;
 			dots[currentQuestionNum].setBackgroundResource(R.drawable.correct_dot);
 		} else {
+			Sounds.wrong();
 			showResultCard(false);
 			submit.setColor("red");
 			dots[currentQuestionNum].setBackgroundResource(R.drawable.wrong_dot);
@@ -258,6 +263,7 @@ public class QuizActivity extends AppCompatActivity {
 		Result result = new Result(currentCategory, answerList);
 		result.save();
 		currentCategory.save();
+		countTimer.cancel();
 
 		Intent intent = new Intent(this, ResultActivity.class);
 		intent.putExtra("result", result.id);
@@ -268,6 +274,7 @@ public class QuizActivity extends AppCompatActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		countTimer.cancel();
+		Sounds.stopBGM();
 	}
 
 	@Override
