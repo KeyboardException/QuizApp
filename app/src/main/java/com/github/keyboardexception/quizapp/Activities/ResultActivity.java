@@ -93,4 +93,10 @@ public class ResultActivity extends AppCompatActivity {
 			Sounds.stopBGM();
 		});
 	}
+
+	@Override
+	protected void onDestroy() {
+		Sounds.stopBGM();
+		super.onDestroy();
+	}
 }

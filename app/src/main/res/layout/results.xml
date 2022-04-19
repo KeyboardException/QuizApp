@@ -37,21 +37,19 @@
 
     </LinearLayout>
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainResultList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="20dp"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="16dp"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
         android:paddingHorizontal="16dp"
         app:layout_constraintBottom_toTopOf="@+id/res_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:itemCount="4"
+        tools:listitem="@layout/result_card" />
 
     <com.github.keyboardexception.quizapp.Components.BlueButton
         android:id="@+id/res_home"

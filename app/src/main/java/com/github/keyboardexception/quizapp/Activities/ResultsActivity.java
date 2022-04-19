@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.keyboardexception.quizapp.Adapters.ResultAdapter;
 import com.github.keyboardexception.quizapp.Components.BlueButton;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 
 public class ResultsActivity extends AppCompatActivity {
 
-	protected ListView resultList;
+	protected RecyclerView resultList;
 	protected BlueButton home;
 
 	protected ArrayList<Result> results;
@@ -31,15 +33,10 @@ public class ResultsActivity extends AppCompatActivity {
 		home.setOnClickListener(view -> {
 			finish();
 		});
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
 
 		results = Result.getAll();
 		resultAdapter = new ResultAdapter(this, results);
 		resultList.setAdapter(resultAdapter);
-		resultAdapter.notifyDataSetChanged();
+		resultList.setLayoutManager(new LinearLayoutManager(this));
 	}
 }
