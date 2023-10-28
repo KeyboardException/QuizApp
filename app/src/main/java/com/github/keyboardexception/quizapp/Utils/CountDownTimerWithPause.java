@@ -197,13 +197,9 @@ public abstract class CountDownTimerWithPause {
 
 	private static final int MSG = 1;
 
-
-	// handles counting down
 	private final Handler mHandler = new Handler() {
-
 		@Override
 		public void handleMessage(Message msg) {
-
 			synchronized (CountDownTimerWithPause.this) {
 				long millisLeft = timeLeft();
 
