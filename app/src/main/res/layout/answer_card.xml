@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/card_green">
+    android:background="@drawable/card_green"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/ans_card_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sample Question Content"
         android:fontFamily="@font/intervogue_bold"
+        android:text="Sample Question Content"
         android:textColor="@color/text_primary"
         android:textSize="20sp" />
 
@@ -18,8 +18,8 @@
         android:id="@+id/ans_card_wrong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
 
         <View
             android:layout_width="24dp"
@@ -40,8 +40,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
 
         <View
             android:layout_width="24dp"
