@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ExtraText">
+
+
+
+    <TextView
+        android:id="@+id/log_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/intervogue_bold"
+        android:text="Đăng nhập"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/log_username"
+        android:layout_width="0dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/custom_edt"
+        android:ems="10"
+        android:fontFamily="@font/intervogue_medium"
+        android:hint="TÊN NGƯỜI DÙNG"
+        android:inputType="text"
+        android:paddingHorizontal="20dp"
+        android:textColorHint="#A6A6A6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/log_pwd"
+        android:layout_width="0dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/custom_edt"
+        android:ems="10"
+        android:fontFamily="@font/intervogue_medium"
+        android:hint="MẬT KHẨU"
+        android:inputType="textPassword"
+        android:paddingStart="20dp"
+        android:textColorHint="#A6A6A6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/log_username" />
+
+    <Button
+        android:id="@+id/log_forgot_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="30dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/intervogue_medium"
+        android:text="Quên mật khẩu"
+        android:textAlignment="textEnd"
+        android:textColor="#03A9F4"
+        android:textColorLink="@color/material_dynamic_primary50"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/log_pwd" />
+
+    <Button
+        android:id="@+id/log_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/intervogue_medium"
+        android:text="Chưa có tài khoản?"
+        android:textColor="#03A9F4"
+        android:textColorLink="@color/material_dynamic_primary50"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/log_btn" />
+
+    <com.github.keyboardexception.quizapp.Components.GreenButton
+        android:id="@+id/log_btn"
+        style="@style/Button"
+        android:layout_width="0dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/intervogue_medium"
+        android:text="ĐĂNG NHẬP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/log_forgot_pwd" />"
+
+</androidx.constraintlayout.widget.ConstraintLayout>
