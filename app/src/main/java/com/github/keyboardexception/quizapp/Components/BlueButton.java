@@ -30,4 +30,7 @@ public class BlueButton extends BaseButton {
 	protected int getActiveBackground() {
 		return R.drawable.button_blue_active;
 	}
+
+	@Override
+	protected int getDisabledBackground() { return R.drawable.button_blue_disabled; }
 }

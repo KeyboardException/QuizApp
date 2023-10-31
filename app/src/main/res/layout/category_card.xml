@@ -7,8 +7,9 @@
 
     <View
         android:id="@+id/cat_card_icon"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_weight="0"
         android:background="@drawable/mathematical" />
 
     <LinearLayout

@@ -1,41 +1,50 @@
 package com.github.keyboardexception.quizapp.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.BaseInterpolator;
 import android.view.animation.OvershootInterpolator;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.keyboardexception.quizapp.API.Response;
+import com.github.keyboardexception.quizapp.API.Responses.AttemptState;
+import com.github.keyboardexception.quizapp.API.Responses.NewAttempt;
+import com.github.keyboardexception.quizapp.API.Responses.UpdateAttempt;
 import com.github.keyboardexception.quizapp.Components.DynamicButton;
+import com.github.keyboardexception.quizapp.Main;
 import com.github.keyboardexception.quizapp.Objects.Answer;
-import com.github.keyboardexception.quizapp.Objects.Category;
 import com.github.keyboardexception.quizapp.Objects.Question;
-import com.github.keyboardexception.quizapp.Objects.Result;
 import com.github.keyboardexception.quizapp.R;
 import com.github.keyboardexception.quizapp.Sounds;
 import com.github.keyboardexception.quizapp.Utils.CountDownTimerWithPause;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import kotlinx.coroutines.channels.Send;
+
 public class QuizActivity extends AppCompatActivity {
-	public static long TIME = 41000;
+	public static long TIME = 300000;
 
 	protected List<Question> questions;
 
 	protected TextView timer;
 	protected View[] dots;
 	protected AnimatedVectorDrawable clock;
+	protected FrameLayout overlay;
 
 	protected TextView questionNum;
 	protected TextView questionContent;
@@ -51,12 +60,11 @@ public class QuizActivity extends AppCompatActivity {
 	protected TextView resultText;
 	protected View resultIcon;
 
+	protected NewAttempt attempt;
 	protected Question currentQuestion;
-	protected Category currentCategory;
 	protected int currentQuestionNum;
 	protected int selectedAnswer;
 	protected boolean answered = false;
-	protected ArrayList<Answer> answerList;
 	protected BaseInterpolator interpolator;
 
 	protected CountDownTimerWithPause countTimer;
@@ -76,6 +84,7 @@ public class QuizActivity extends AppCompatActivity {
 			findViewById(R.id.qdot_5)
 		};
 
+		overlay = findViewById(R.id.quiz_loading_overlay);
 		questionNum = findViewById(R.id.quesnum);
 		questionContent = findViewById(R.id.quescontent);
 
@@ -92,11 +101,8 @@ public class QuizActivity extends AppCompatActivity {
 
 		Intent intent = getIntent();
 		int cid = intent.getIntExtra("category", -1);
-		currentCategory = Category.get(cid);
-		questions = currentCategory.makeQuestionSet();
-		answerList = new ArrayList<>();
-
-		start();
+		overlay.setVisibility(View.VISIBLE);
+		new StartAttemptTask().execute(cid);
 	}
 
 	protected float dp2px(float dp) {
@@ -108,6 +114,7 @@ public class QuizActivity extends AppCompatActivity {
 	}
 
 	protected void start() {
+		overlay.setVisibility(View.GONE);
 		submit.setOnClickListener(this::onSubmit);
 		answers.setOnCheckedChangeListener(this::onAnswerChanged);
 		currentQuestionNum = -1;
@@ -220,11 +227,14 @@ public class QuizActivity extends AppCompatActivity {
 		if (selectedAnswer == 0)
 			return;
 
-		if (selectedAnswer == currentQuestion.answer) {
+		new SendAnswerTask().execute(selectedAnswer);
+	}
+
+	protected void resultSubmitted(UpdateAttempt info) {
+		if (info.correct) {
 			Sounds.correct();
 			showResultCard(true);
 			submit.setColor("green");
-			currentQuestion.completed += 1;
 			dots[currentQuestionNum].setBackgroundResource(R.drawable.correct_dot);
 		} else {
 			Sounds.wrong();
@@ -232,9 +242,6 @@ public class QuizActivity extends AppCompatActivity {
 			submit.setColor("red");
 			dots[currentQuestionNum].setBackgroundResource(R.drawable.wrong_dot);
 		}
-
-		Answer a = new Answer(currentQuestion, selectedAnswer);
-		answerList.add(a);
 
 		answer1.setClickable(false);
 		answer2.setClickable(false);
@@ -252,21 +259,15 @@ public class QuizActivity extends AppCompatActivity {
 	}
 
 	protected void onComplete() {
-		for (Question question : questions) {
-			question.save();
-		}
-
-		// Fill in unanswered questions
-		for (int i = answerList.size(); i < questions.size(); i++)
-			answerList.add(new Answer(questions.get(i), 0));
-
-		Result result = new Result(currentCategory, answerList);
-		result.save();
-		currentCategory.save();
 		countTimer.cancel();
+		submit.setEnabled(false);
 
+		new CompleteAttemptTask().execute();
+	}
+
+	protected void toResultScreen(int attemptId) {
 		Intent intent = new Intent(this, ResultActivity.class);
-		intent.putExtra("result", result.id);
+		intent.putExtra("attempt", attemptId);
 		startActivityForResult(intent, 1);
 	}
 
@@ -283,6 +284,89 @@ public class QuizActivity extends AppCompatActivity {
 
 		if (requestCode == 1) {
 			finish();
+		}
+	}
+
+	protected class StartAttemptTask extends AsyncTask<Integer, Void, Response<NewAttempt>> {
+		@Override
+		protected Response<NewAttempt> doInBackground(Integer... params) {
+			return Main.APIClient.startAttempt(params[0]);
+		}
+
+		@Override
+		protected void onPostExecute(Response<NewAttempt> response) {
+			if (response != null) {
+				if (response.code != 0) {
+					Toast.makeText(getApplicationContext(), response.description, Toast.LENGTH_LONG).show();
+					return;
+				}
+
+				if (response.data != null) {
+					// Handle the API response here
+					// You can update UI or perform other tasks based on the data
+					questions = new ArrayList<Question>(Arrays.asList(response.data.questions));
+					attempt = response.data;
+					start();
+				}
+			} else {
+				Toast.makeText(getApplicationContext(), "Unknown error occured", Toast.LENGTH_LONG).show();
+			}
+		}
+	}
+
+	protected class SendAnswerTask extends AsyncTask<Integer, Void, Response<UpdateAttempt>> {
+		@Override
+		protected Response<UpdateAttempt> doInBackground(Integer... params) {
+			submit.setEnabled(false);
+			return Main.APIClient.updateAttempt(attempt.attempt.id, currentQuestion.attempt, params[0]);
+		}
+
+		@Override
+		protected void onPostExecute(Response<UpdateAttempt> response) {
+			submit.setEnabled(true);
+
+			if (response != null) {
+				if (response.code != 0) {
+					Toast.makeText(getApplicationContext(), response.description, Toast.LENGTH_LONG).show();
+					return;
+				}
+
+				if (response.data != null) {
+					// Handle the API response here
+					// You can update UI or perform other tasks based on the data
+					resultSubmitted(response.data);
+				}
+			} else {
+				Toast.makeText(getApplicationContext(), "Unknown error occured", Toast.LENGTH_LONG).show();
+			}
+		}
+	}
+
+	protected class CompleteAttemptTask extends AsyncTask<Void, Void, Response<Object>> {
+		@Override
+		protected Response<Object> doInBackground(Void... params) {
+			submit.setEnabled(false);
+			return Main.APIClient.completeAttempt(attempt.attempt.id);
+		}
+
+		@Override
+		protected void onPostExecute(Response<Object> response) {
+			submit.setEnabled(true);
+
+			if (response != null) {
+				if (response.code != 0) {
+					Toast.makeText(getApplicationContext(), response.description, Toast.LENGTH_LONG).show();
+					return;
+				}
+
+				if (response.data != null) {
+					// Handle the API response here
+					// You can update UI or perform other tasks based on the data
+					toResultScreen(attempt.attempt.id);
+				}
+			} else {
+				Toast.makeText(getApplicationContext(), "Unknown error occured", Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 }

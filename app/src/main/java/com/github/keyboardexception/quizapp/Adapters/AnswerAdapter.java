@@ -12,12 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.keyboardexception.quizapp.Objects.Answer;
+import com.github.keyboardexception.quizapp.Objects.AttemptQuestion;
 import com.github.keyboardexception.quizapp.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class AnswerAdapter extends ArrayAdapter<Answer> {
-	public AnswerAdapter(@NonNull Context context, ArrayList<Answer> answers) {
+public class AnswerAdapter extends ArrayAdapter<AttemptQuestion> {
+	public AnswerAdapter(@NonNull Context context, ArrayList<AttemptQuestion> answers) {
 		super(context, 0, answers);
 	}
 
@@ -28,29 +30,32 @@ public class AnswerAdapter extends ArrayAdapter<Answer> {
 			? LayoutInflater.from(getContext()).inflate(R.layout.answer_card, parent, false)
 			: convertView;
 
-		Answer answer = getItem(position);
+		AttemptQuestion answer = getItem(position);
 
 		TextView question = currentView.findViewById(R.id.ans_card_question);
 		LinearLayout wrong = currentView.findViewById(R.id.ans_card_wrong);
 		TextView wrongAnswer = currentView.findViewById(R.id.ans_card_wrong_answer);
 		TextView correctAnswer = currentView.findViewById(R.id.ans_card_correct_answer);
 
-		question.setText(answer.question.question);
+		assert answer != null;
+		question.setText(answer.question);
 
-		if (answer.isCorrect()) {
+		if (answer.correct) {
 			currentView.setBackgroundResource(R.drawable.card_green);
 			wrong.setVisibility(View.GONE);
 			correctAnswer.setText(answer.getAnswer(answer.answer));
 		} else {
 			currentView.setBackgroundResource(R.drawable.card_red);
 
-			if (answer.answer == 0) {
+			if (Objects.equals(answer.status, "skipped")) {
 				wrong.setVisibility(View.GONE);
+				currentView.setBackgroundResource(R.drawable.card_yellow);
 			} else {
-				wrongAnswer.setText(answer.getAnswer(answer.answer));
+				wrong.setVisibility(View.VISIBLE);
+				wrongAnswer.setText(answer.getAnswer(answer.answered));
 			}
 
-			correctAnswer.setText(answer.getAnswer(answer.question.answer));
+			correctAnswer.setText(answer.getAnswer(answer.answer));
 		}
 
 		return currentView;

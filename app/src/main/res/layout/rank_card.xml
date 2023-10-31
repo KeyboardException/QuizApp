@@ -4,41 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:drawable/editbox_background_normal"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="10dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/rank_card_rank"
         android:layout_width="24dp"
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:fontFamily="@font/intervogue_black"
         android:text="#1"
         android:textColor="@color/text_primary"
-        android:textSize="24sp"></TextView>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="60dp"
-        android:layout_height="55dp"
-        android:layout_weight="0"
-        app:srcCompat="@android:drawable/presence_invisible" />
+        android:textSize="22dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_weight="0"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/rank_card_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/intervogue_black"
             android:text="Name"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/rank_card_point"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/intervogue_black"

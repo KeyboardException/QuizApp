@@ -30,10 +30,24 @@
             android:textSize="26sp" />
 
         <View
+            android:id="@+id/main_ranking"
+            android:layout_width="24sp"
+            android:layout_height="24sp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ranking" />
+
+        <View
             android:id="@+id/main_results"
             android:layout_width="24sp"
             android:layout_height="24sp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/history" />
+
+        <View
+            android:id="@+id/main_profile"
+            android:layout_width="24sp"
+            android:layout_height="24sp"
+            android:background="@drawable/usercircle" />
     </LinearLayout>
 
     <ListView
@@ -49,6 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:listitem="@layout/category_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

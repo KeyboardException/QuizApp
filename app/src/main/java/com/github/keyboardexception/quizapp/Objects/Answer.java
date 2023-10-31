@@ -31,32 +31,4 @@ public class Answer {
 
 		return "UNKNOWN";
 	}
-
-	public boolean isCorrect() {
-		return question.answer == answer;
-	}
-
-	public static ArrayList<Answer> processData(String data) {
-		ArrayList<Answer> answers = new ArrayList<>();
-
-		String[] items = data.split(",");
-		for (String item : items) {
-			String[] t = item.split(":");
-			answers.add(new Answer(
-				Question.get(Integer.parseInt(t[0])),
-				Integer.parseInt(t[1])
-			));
-		}
-
-		return answers;
-	}
-
-	public static String craftData(ArrayList<Answer> answers) {
-		ArrayList<String> parts = new ArrayList<>();
-
-		for (Answer answer : answers)
-			parts.add(String.format(Locale.US, "%d:%d", answer.question.id, answer.answer));
-
-		return StringUtils.join(parts, ",");
-	}
 }

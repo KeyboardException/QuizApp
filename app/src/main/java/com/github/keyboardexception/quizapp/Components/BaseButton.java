@@ -34,6 +34,10 @@ public class BaseButton extends AppCompatButton {
 		return R.drawable.button_base_active;
 	}
 
+	protected int getDisabledBackground() {
+		return R.drawable.button_base_disabled;
+	}
+
 	protected void init() {
 		setTextSize(18);
 		setTextColor(ContextCompat.getColor(getContext(), R.color.white));
@@ -41,6 +45,11 @@ public class BaseButton extends AppCompatButton {
 	}
 
 	protected void updateColor() {
+		if (!isEnabled()) {
+			setBackgroundResource(getDisabledBackground());
+			return;
+		}
+
 		setBackgroundResource(isPressed()
 			? getActiveBackground()
 			: getEnabledBackground());
@@ -52,5 +61,11 @@ public class BaseButton extends AppCompatButton {
 			super.setPressed(pressed);
 			updateColor();
 		}
+	}
+
+	@Override
+	public void setEnabled(boolean enabled) {
+		super.setEnabled(enabled);
+		updateColor();
 	}
 }

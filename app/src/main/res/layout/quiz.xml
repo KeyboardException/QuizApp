@@ -135,9 +135,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="-6dp"
+                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/intervogue_bold"
                         android:paddingLeft="10dp"
-                        android:layout_marginBottom="10dp"
                         android:text="Answer 1"
                         android:textColor="@color/text_primary"
                         android:textSize="16dp" />
@@ -223,5 +223,24 @@
         app:layout_constraintBottom_toBottomOf="@+id/container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/quiz_loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.8"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/quiz_loading_overlay_spinner"
+            style="@android:style/Widget.Material.ProgressBar.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="#E91E63"
+            android:progressTint="#E91E63" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

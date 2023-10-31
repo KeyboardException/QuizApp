@@ -3,21 +3,15 @@ package com.github.keyboardexception.quizapp.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.keyboardexception.quizapp.Activities.QuizActivity;
 import com.github.keyboardexception.quizapp.Activities.ResultActivity;
-import com.github.keyboardexception.quizapp.Objects.Category;
+import com.github.keyboardexception.quizapp.Objects.Attempt;
 import com.github.keyboardexception.quizapp.Objects.Result;
 import com.github.keyboardexception.quizapp.R;
 
@@ -29,9 +23,9 @@ import java.util.Locale;
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
 	protected View view;
 	protected Context context;
-	protected ArrayList<Result> results;
+	protected ArrayList<Attempt> results;
 
-	public ResultAdapter(@NonNull Context context, ArrayList<Result> results) {
+	public ResultAdapter(@NonNull Context context, ArrayList<Attempt> results) {
 		this.context = context;
 		this.results = results;
 	}
@@ -46,29 +40,33 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
 	@Override
 	public void onBindViewHolder(@NonNull ResultAdapter.ViewHolder holder, int position) {
-		Result result = results.get(position);
+		Attempt result = results.get(position);
 
 		for (int i = 0; i < holder.dots.length; i++) {
-			if (result.answers.get(i).answer == 0) {
-				holder.dots[i].setBackgroundResource(R.drawable.question_dot);
-				continue;
-			}
+			switch (result.answers[i]) {
+				case "waiting":
+				case "skipped":
+					holder.dots[i].setBackgroundResource(R.drawable.question_dot);
+					continue;
 
-			holder.dots[i].setBackgroundResource(result.answers.get(i).isCorrect()
-				? R.drawable.correct_dot
-				: R.drawable.wrong_dot);
+				case "correct":
+					holder.dots[i].setBackgroundResource(R.drawable.correct_dot);
+
+				case "wrong":
+					holder.dots[i].setBackgroundResource(R.drawable.wrong_dot);
+			}
 		}
 
-		if (result.correct() == result.answers.size())
+		if (result.correct == result.total)
 			view.setBackgroundResource(R.drawable.card_green);
-		else if (result.correct() == 0)
+		else if (result.correct == 0)
 			view.setBackgroundResource(R.drawable.card_red);
 		else
 			view.setBackgroundResource(R.drawable.card_yellow);
 
-		int iconID = result.category.getIcon(context);
+		int iconID = result.bank.getIcon(context);
 		holder.icon.setBackgroundResource(iconID);
-		holder.title.setText(result.category.name);
+		holder.title.setText(result.bank.name);
 
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy", Locale.US);
 		Date date = new Date(result.created * 1000L);
@@ -107,10 +105,10 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 			};
 		}
 
-		public void attachEvent(Context context, Result result) {
+		public void attachEvent(Context context, Attempt result) {
 			view.setOnClickListener(view -> {
 				Intent intent = new Intent(context, ResultActivity.class);
-				intent.putExtra("result", result.id);
+				intent.putExtra("attempt", result.id);
 				context.startActivity(intent);
 			});
 		}

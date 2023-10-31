@@ -12,24 +12,101 @@
         android:background="#DAFFE0"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingVertical="30sp"
+        android:paddingVertical="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <View
-            android:layout_width="80dp"
-            android:layout_height="80sp"
-            android:background="@drawable/trophy" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:fontFamily="@font/intervogue_black"
-            android:text="Kết Quả"
-            android:textColor="@color/text_primary"
-            android:textSize="28sp" />
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/trophy" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/intervogue_black"
+                android:text="Kết Quả"
+                android:textColor="@color/text_primary"
+                android:textSize="22dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingHorizontal="30dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/result_user_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:fontFamily="@font/intervogue_bold"
+                    android:text="00"
+                    android:textColor="@color/text_primary"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/result_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="0"
+                    android:fontFamily="@font/intervogue_bold"
+                    android:text="+00"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/result_points_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="0"
+                    android:fontFamily="@font/intervogue_bold"
+                    android:text="điểm"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/result_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:fontFamily="@font/intervogue_bold"
+                android:layout_marginRight="5dp"
+                android:text="Name"
+                android:textColor="@color/text_secondary"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/result_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:fontFamily="@font/intervogue_bold"
+                android:text="#00"
+                android:textColor="@color/text_primary"
+                android:textSize="24sp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -120,7 +197,8 @@
         app:layout_constraintBottom_toTopOf="@+id/res_cathome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        tools:listitem="@layout/answer_card" />
 
     <com.github.keyboardexception.quizapp.Components.BlueButton
         android:id="@+id/res_cathome"
@@ -134,4 +212,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/quiz_loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.8"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/quiz_loading_overlay_spinner"
+            style="@android:style/Widget.Material.ProgressBar.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="#E91E63"
+            android:progressTint="#E91E63" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
