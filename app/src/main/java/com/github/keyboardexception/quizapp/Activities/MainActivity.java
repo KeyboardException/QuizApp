@@ -52,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
 			Intent intent = new Intent(this, ResultsActivity.class);
 			startActivity(intent);
 		});
+
+		profile.setOnClickListener(view -> {
+			Intent intent = new Intent(this, UserProfileActivity.class);
+			intent.putExtra("user", Session.currentUser.id);
+			startActivity(intent);
+		});
 	}
 
 	@Override

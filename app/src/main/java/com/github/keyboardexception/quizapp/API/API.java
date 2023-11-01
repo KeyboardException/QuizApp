@@ -8,6 +8,7 @@ import com.github.keyboardexception.quizapp.API.Responses.UpdateAttempt;
 import com.github.keyboardexception.quizapp.Objects.Attempt;
 import com.github.keyboardexception.quizapp.Objects.QuestionBank;
 import com.github.keyboardexception.quizapp.Objects.Session;
+import com.github.keyboardexception.quizapp.Objects.User;
 import com.google.gson.Gson;
 
 import java.util.Objects;
@@ -57,6 +58,24 @@ public class API {
     public Response<AuthResponse> login(String username, String password) {
         try {
             Call<Response<AuthResponse>> call = apiService.login(username, password);
+            retrofit2.Response<Response<AuthResponse>> response = call.execute();
+
+            if (response.isSuccessful()) {
+                return response.body();
+            } else {
+                Gson gson = new Gson();
+                Response<AuthResponse> data = gson.fromJson(response.errorBody().string(), Response.class);
+                return data;
+            }
+        } catch (Exception e) {
+            // Handle the exception
+            return null;
+        }
+    }
+
+    public Response<AuthResponse> signup(String username, String name, String email, String password) {
+        try {
+            Call<Response<AuthResponse>> call = apiService.signup(username, name, email, password);
             retrofit2.Response<Response<AuthResponse>> response = call.execute();
 
             if (response.isSuccessful()) {
@@ -228,6 +247,29 @@ public class API {
             } else {
                 Gson gson = new Gson();
                 Response<Ranking> data = gson.fromJson(response.errorBody().string(), Response.class);
+                return data;
+            }
+        } catch (Exception e) {
+            // Handle the exception
+            return null;
+        }
+    }
+
+    public Response<User> user(int id) {
+        String token = Session.getStoredToken();
+
+        if (Objects.equals(token, ""))
+            token = null;
+
+        try {
+            Call<Response<User>> call = apiService.user("/api/user/" + id, token);
+            retrofit2.Response<Response<User>> response = call.execute();
+
+            if (response.isSuccessful()) {
+                return response.body();
+            } else {
+                Gson gson = new Gson();
+                Response<User> data = gson.fromJson(response.errorBody().string(), Response.class);
                 return data;
             }
         } catch (Exception e) {

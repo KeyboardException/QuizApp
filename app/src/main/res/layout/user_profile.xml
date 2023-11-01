@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.MainActivity">
+
+    <View
+        android:id="@+id/profile_banner"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:background="#C8EF9B"
+        android:backgroundTint="#C8EF9B"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/intervogue_bold"
+                android:text="Quackity"
+                android:textColor="@color/text_primary"
+                android:textSize="26dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_weight="0"
+                    android:background="@drawable/circle" />
+
+                <TextView
+                    android:id="@+id/profile_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0"
+                    android:fontFamily="@font/intervogue_medium"
+                    android:text="Trực Tuyến"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16dp" />
+
+                <View
+                    android:id="@+id/profile_edit"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="0"
+                    android:background="@drawable/icon_pen_to_square"
+                    android:backgroundTint="@color/text_primary" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/profile_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/intervogue_medium"
+                android:text="\@username"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/profile_joined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/intervogue_medium"
+                android:text="Joined 1/1/1111"
+                android:textColor="@color/text_primary"
+                android:textSize="17dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/profile_sep1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#575757"
+        android:backgroundTint="#575757" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/profile_stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="20dp"
+            android:text="Thống Kê"
+            android:fontFamily="@font/intervogue_bold"
+            android:textColor="@color/text_primary"
+            android:textSize="22dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp">
+
+                <View
+                    android:id="@+id/profile_correct_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="28dp"
+                    android:layout_weight="0"
+                    android:background="@drawable/apple" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/profile_correct_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/intervogue_bold"
+                        android:text="00"
+                        android:textColor="@color/text_primary"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/profile_correct_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/intervogue_medium"
+                        android:text="Trả lời đúng"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp">
+
+                <View
+                    android:id="@+id/profile_score_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="28dp"
+                    android:layout_weight="0"
+                    android:background="@drawable/apple" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/profile_score_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/intervogue_bold"
+                        android:text="00"
+                        android:textColor="@color/text_primary"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/profile_score_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/intervogue_medium"
+                        android:text="Tổng điểm"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="10dp"
+            android:layout_weight="0"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp">
+
+            <View
+                android:id="@+id/profile_rank_icon"
+                android:layout_width="28dp"
+                android:layout_height="24dp"
+                android:layout_weight="0"
+                android:background="@drawable/ranking" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/profile_rank_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/intervogue_bold"
+                    android:text="00"
+                    android:textColor="@color/text_primary"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/profile_rank_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/intervogue_medium"
+                    android:text="Thứ hạng"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

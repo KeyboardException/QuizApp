@@ -12,6 +12,8 @@ public class Session {
     public static final String SESSION = "session";
     public static final String TOKEN = "token";
 
+    public static User currentUser;
+
     public Boolean authenticated = false;
 
     public String session = null;

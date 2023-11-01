@@ -44,8 +44,10 @@ public class StartActivity extends AppCompatActivity {
             if (response != null && response.data != null) {
                 // Handle the API response here
                 // You can update UI or perform other tasks based on the data
-                if (response.data.authenticated)
+                if (response.data.authenticated) {
+                    Session.currentUser = response.data.user;
                     sessionValid = true;
+                }
             }
 
             if (!sessionValid) {

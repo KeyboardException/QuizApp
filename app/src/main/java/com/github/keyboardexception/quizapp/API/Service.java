@@ -8,6 +8,7 @@ import com.github.keyboardexception.quizapp.API.Responses.UpdateAttempt;
 import com.github.keyboardexception.quizapp.Objects.Attempt;
 import com.github.keyboardexception.quizapp.Objects.QuestionBank;
 import com.github.keyboardexception.quizapp.Objects.Session;
+import com.github.keyboardexception.quizapp.Objects.User;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -30,6 +31,16 @@ public interface Service {
     @Headers({"Accept: application/json"})
     Call<Response<AuthResponse>> login(
         @Field("username") String username,
+        @Field("password") String password
+    );
+
+    @FormUrlEncoded
+    @POST("/api/register")
+    @Headers({"Accept: application/json"})
+    Call<Response<AuthResponse>> signup(
+        @Field("username") String username,
+        @Field("name") String name,
+        @Field("email") String email,
         @Field("password") String password
     );
 
@@ -78,6 +89,13 @@ public interface Service {
     @GET("/api/ranking")
     @Headers({"Accept: application/json"})
     Call<Response<Ranking>> ranking(
+        @Header("Authorization") String token
+    );
+
+    @GET
+    @Headers({"Accept: application/json"})
+    Call<Response<User>> user(
+        @Url String url,
         @Header("Authorization") String token
     );
 }

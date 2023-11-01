@@ -15,7 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.github.keyboardexception.quizapp.Activities.QuizActivity;
+import com.github.keyboardexception.quizapp.Activities.UserProfileActivity;
 import com.github.keyboardexception.quizapp.Objects.QuestionBank;
+import com.github.keyboardexception.quizapp.Objects.Session;
 import com.github.keyboardexception.quizapp.Objects.User;
 import com.github.keyboardexception.quizapp.R;
 
@@ -23,8 +25,12 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class RankingAdapter extends ArrayAdapter<User> {
+
+	protected Context context;
+
 	public RankingAdapter(@NonNull Context context, ArrayList<User> users) {
 		super(context, 0, users);
+		this.context = context;
 	}
 
 	@NonNull
@@ -44,6 +50,12 @@ public class RankingAdapter extends ArrayAdapter<User> {
 		rank.setText("#" + user.rank);
 		name.setText(user.name);
 		point.setText(user.score + " điểm");
+
+		currentView.setOnClickListener(view -> {
+			Intent intent = new Intent(context, UserProfileActivity.class);
+			intent.putExtra("user", user.id);
+			context.startActivity(intent);
+		});
 
 		return currentView;
 	}

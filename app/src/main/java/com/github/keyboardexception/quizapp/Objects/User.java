@@ -13,5 +13,7 @@ public class User {
 
     public int rank = 0;
 
+    public int correct = 0;
+
     public int created;
 }

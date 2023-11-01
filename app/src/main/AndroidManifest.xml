@@ -23,6 +23,12 @@
             android:name=".Activities.ResultsActivity"
             android:exported="true" />
         <activity
+            android:name=".Activities.UserProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activities.RegisterActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activities.MainActivity"
             android:exported="true" />
         <activity
