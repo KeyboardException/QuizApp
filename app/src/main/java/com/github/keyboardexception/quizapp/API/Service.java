@@ -7,6 +7,7 @@ import com.github.keyboardexception.quizapp.API.Responses.Ranking;
 import com.github.keyboardexception.quizapp.API.Responses.UpdateAttempt;
 import com.github.keyboardexception.quizapp.Objects.Attempt;
 import com.github.keyboardexception.quizapp.Objects.QuestionBank;
+import com.github.keyboardexception.quizapp.Objects.SensorData;
 import com.github.keyboardexception.quizapp.Objects.Session;
 import com.github.keyboardexception.quizapp.Objects.User;
 
@@ -98,4 +99,16 @@ public interface Service {
         @Url String url,
         @Header("Authorization") String token
     );
+
+    @POST("/api/sensor")
+    @Headers({"Accept: application/json"})
+    @FormUrlEncoded
+    Call<Response<SensorData>> saveSensorValue(
+        @Field("type") String type,
+        @Field("value") float value
+    );
+
+    @GET("/api/sensor")
+    @Headers({"Accept: application/json"})
+    Call<ResponseList<SensorData>> getSensorValues();
 }

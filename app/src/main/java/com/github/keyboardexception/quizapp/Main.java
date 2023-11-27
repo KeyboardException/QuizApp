@@ -22,6 +22,6 @@ public class Main extends Application {
 		context = getApplicationContext();
 		super.onCreate();
 
-		APIClient = new API("http://192.168.1.3");
+		APIClient = new API("http://192.168.1.8:8080");
 	}
 }

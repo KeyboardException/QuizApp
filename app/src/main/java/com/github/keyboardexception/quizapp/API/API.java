@@ -7,6 +7,7 @@ import com.github.keyboardexception.quizapp.API.Responses.Ranking;
 import com.github.keyboardexception.quizapp.API.Responses.UpdateAttempt;
 import com.github.keyboardexception.quizapp.Objects.Attempt;
 import com.github.keyboardexception.quizapp.Objects.QuestionBank;
+import com.github.keyboardexception.quizapp.Objects.SensorData;
 import com.github.keyboardexception.quizapp.Objects.Session;
 import com.github.keyboardexception.quizapp.Objects.User;
 import com.google.gson.Gson;
@@ -270,6 +271,42 @@ public class API {
             } else {
                 Gson gson = new Gson();
                 Response<User> data = gson.fromJson(response.errorBody().string(), Response.class);
+                return data;
+            }
+        } catch (Exception e) {
+            // Handle the exception
+            return null;
+        }
+    }
+
+    public Response<SensorData> saveSensorValue(String type, float value) {
+        try {
+            Call<Response<SensorData>> call = apiService.saveSensorValue(type, value);
+            retrofit2.Response<Response<SensorData>> response = call.execute();
+
+            if (response.isSuccessful()) {
+                return response.body();
+            } else {
+                Gson gson = new Gson();
+                Response<SensorData> data = gson.fromJson(response.errorBody().string(), Response.class);
+                return data;
+            }
+        } catch (Exception e) {
+            // Handle the exception
+            return null;
+        }
+    }
+
+    public ResponseList<SensorData> getSensorValues() {
+        try {
+            Call<ResponseList<SensorData>> call = apiService.getSensorValues();
+            retrofit2.Response<ResponseList<SensorData>> response = call.execute();
+
+            if (response.isSuccessful()) {
+                return response.body();
+            } else {
+                Gson gson = new Gson();
+                ResponseList<SensorData> data = gson.fromJson(response.errorBody().string(), ResponseList.class);
                 return data;
             }
         } catch (Exception e) {

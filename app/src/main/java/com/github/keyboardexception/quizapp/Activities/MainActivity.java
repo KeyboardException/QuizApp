@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 		ranking = findViewById(R.id.main_ranking);
 		results = findViewById(R.id.main_results);
 		profile = findViewById(R.id.main_profile);
+		Button sensorActivityBtn = findViewById(R.id.sensor_activity_btn);
 
 		ranking.setOnClickListener(view -> {
 			Intent intent = new Intent(this, RankingActivity.class);
@@ -56,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
 		profile.setOnClickListener(view -> {
 			Intent intent = new Intent(this, UserProfileActivity.class);
 			intent.putExtra("user", Session.currentUser.id);
+			startActivity(intent);
+		});
+
+		sensorActivityBtn.setOnClickListener(view -> {
+			Intent intent = new Intent(this, SensorDisplayActivity.class);
 			startActivity(intent);
 		});
 	}
