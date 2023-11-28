@@ -6,6 +6,7 @@ import com.github.keyboardexception.quizapp.API.Responses.NewAttempt;
 import com.github.keyboardexception.quizapp.API.Responses.Ranking;
 import com.github.keyboardexception.quizapp.API.Responses.UpdateAttempt;
 import com.github.keyboardexception.quizapp.Objects.Attempt;
+import com.github.keyboardexception.quizapp.Objects.Comment;
 import com.github.keyboardexception.quizapp.Objects.QuestionBank;
 import com.github.keyboardexception.quizapp.Objects.Session;
 import com.github.keyboardexception.quizapp.Objects.User;
@@ -95,6 +96,23 @@ public interface Service {
     @GET
     @Headers({"Accept: application/json"})
     Call<Response<User>> user(
+        @Url String url,
+        @Header("Authorization") String token
+    );
+
+    @POST
+    @FormUrlEncoded
+    @Headers({"Accept: application/json"})
+    Call<Response<Comment>> addComment(
+        @Url String url,
+        @Header("Authorization") String token,
+        @Field("score") float score,
+        @Field("content") String content
+    );
+
+    @GET
+    @Headers({"Accept: application/json"})
+    Call<ResponseList<Comment>> fetchComments(
         @Url String url,
         @Header("Authorization") String token
     );

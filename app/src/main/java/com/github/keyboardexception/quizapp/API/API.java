@@ -6,6 +6,7 @@ import com.github.keyboardexception.quizapp.API.Responses.NewAttempt;
 import com.github.keyboardexception.quizapp.API.Responses.Ranking;
 import com.github.keyboardexception.quizapp.API.Responses.UpdateAttempt;
 import com.github.keyboardexception.quizapp.Objects.Attempt;
+import com.github.keyboardexception.quizapp.Objects.Comment;
 import com.github.keyboardexception.quizapp.Objects.QuestionBank;
 import com.github.keyboardexception.quizapp.Objects.Session;
 import com.github.keyboardexception.quizapp.Objects.User;
@@ -270,6 +271,52 @@ public class API {
             } else {
                 Gson gson = new Gson();
                 Response<User> data = gson.fromJson(response.errorBody().string(), Response.class);
+                return data;
+            }
+        } catch (Exception e) {
+            // Handle the exception
+            return null;
+        }
+    }
+
+    public Response<Comment> addComment(User profile, float score, String content) {
+        String token = Session.getStoredToken();
+
+        if (Objects.equals(token, ""))
+            token = null;
+
+        try {
+            Call<Response<Comment>> call = apiService.addComment("/api/profile/" + profile.id + "/comment", token, score, content);
+            retrofit2.Response<Response<Comment>> response = call.execute();
+
+            if (response.isSuccessful()) {
+                return response.body();
+            } else {
+                Gson gson = new Gson();
+                Response<Comment> data = gson.fromJson(response.errorBody().string(), Response.class);
+                return data;
+            }
+        } catch (Exception e) {
+            // Handle the exception
+            return null;
+        }
+    }
+
+    public ResponseList<Comment> fetchComments(User profile) {
+        String token = Session.getStoredToken();
+
+        if (Objects.equals(token, ""))
+            token = null;
+
+        try {
+            Call<ResponseList<Comment>> call = apiService.fetchComments("/api/profile/" + profile.id + "/comment", token);
+            retrofit2.Response<ResponseList<Comment>> response = call.execute();
+
+            if (response.isSuccessful()) {
+                return response.body();
+            } else {
+                Gson gson = new Gson();
+                ResponseList<Comment> data = gson.fromJson(response.errorBody().string(), ResponseList.class);
                 return data;
             }
         } catch (Exception e) {
